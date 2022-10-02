@@ -4,7 +4,9 @@ import main.java.entities.Career;
 import main.java.entities.Student;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import java.util.List;
+import java.util.Queue;
 
 public class StudentRepositoryImpl implements StudentRepository {
     private EntityManager em;
@@ -35,7 +37,10 @@ public class StudentRepositoryImpl implements StudentRepository {
 
     @Override
     public List<Student> findByCareerAndCity(Career c, String city) {
-        return null;
+        return this.em.createQuery("select s from Inscription i join i.student s join i.career c where c.id = :careerId and s.city = :city")
+                .setParameter("careerId",c.getId())
+                .setParameter("city",city)
+                .getResultList();
     }
 
     @Override
