@@ -4,6 +4,10 @@ import main.java.entities.Career;
 import main.java.entities.Student;
 
 import javax.persistence.EntityManager;
+
+import edu.isistan.dao.Persona;
+
+import java.util.Collections;
 import java.util.List;
 
 public class StudentRepositoryImpl implements StudentRepository {
@@ -15,12 +19,21 @@ public class StudentRepositoryImpl implements StudentRepository {
 
     @Override
     public void save(Student s) {
-
+    	if (s.getBookNumber() == null) {
+    		em.persist(s);
+    	} else {
+    		s = em.merge(s);
+    	}
     }
 
     @Override
-    public List<Student> findAll(String orderCriteria) {
-        return null;
+    public List<Student> findAll(String orderCriterio) {
+    	
+    	List<Student> students = em.createQuery("SELECT s FROM students ORDER BY s.?1")
+    			.setParameter(1, orderCriterio)
+    			.getResultList();
+    	
+        return students;
     }
 
     @Override

@@ -6,6 +6,7 @@ import main.java.entities.Student;
 import main.java.repositories.CareerRepository;
 import main.java.repositories.InscriptionRepository;
 import main.java.repositories.StudentRepositoryImpl;
+import net.bytebuddy.asm.Advice.OffsetMapping.Sort;
 import main.java.repositories.StudentRepository;
 import org.junit.After;
 import org.junit.BeforeClass;
@@ -106,6 +107,8 @@ public class RepositoriesTest {
     public void findAllStudentsTest(){
         createStudents();
         List<Student> studentsFound = studentRepository.findAll("name");
+		for (Student s: studentsFound)
+			System.out.println(s);
         assertTrue(studentsFound.get(0).equals(agus) && studentsFound.get(1).equals(cio) && studentsFound.get(2).equals(lu));
     }
 
@@ -116,6 +119,7 @@ public class RepositoriesTest {
     public void findStudentsByGenderTest(){
         createStudents();
         List<Student> studentsFound = studentRepository.findByGender("female");
+
         assertTrue(!studentsFound.contains(cio) && studentsFound.contains(lu) && studentsFound.contains(agus));
     }
 

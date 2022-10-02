@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 
 @Entity
 @Table(name = "students")
-public class Student {
+public class Student  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -76,4 +76,8 @@ public class Student {
 
         return this.toString().equals(s.toString());
     }
+
+    
+    
+    
 }

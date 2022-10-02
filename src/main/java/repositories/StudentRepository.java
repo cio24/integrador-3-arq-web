@@ -12,7 +12,7 @@ public interface StudentRepository {
      *
      * @param orderCriteria column name of the student entity to use to sort ascending students to be returned
      */
-    List<Student> findAll(String orderCriteria);
+    List<Student> findAll(String orderCriterio);
 
     Student findByBookNumber(int bookNumber);
 
