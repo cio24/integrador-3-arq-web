@@ -37,4 +37,9 @@ public class StudentRepositoryImpl implements StudentRepository {
     public List<Student> findByCareerAndCity(Career c, String city) {
         return null;
     }
+
+    @Override
+    public void deleteAll() {
+        this.em.createQuery("delete from Student").executeUpdate();
+    }
 }

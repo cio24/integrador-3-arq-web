@@ -19,4 +19,7 @@ public interface StudentRepository {
     List<Student> findByGender(String gender);
 
     List<Student> findByCareerAndCity(Career c, String city);
+
+    void deleteAll();
+
 }

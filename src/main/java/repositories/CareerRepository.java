@@ -10,4 +10,6 @@ public interface CareerRepository {
      * find all careers that have enrolled students and sort by amount of enrolled
      */
     List<Career> findWithEnrolledStudents();
+
+    void deleteAll();
 }

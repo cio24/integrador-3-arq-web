@@ -27,16 +27,20 @@ public class Student {
     @Column
     private String gender;
 
+    @Column
+    private String city;
+
     public Student(){
         super();
     }
 
-    public Student(int documentNumber, String name, String surname, Timestamp birthdate, String gender) {
+    public Student(int documentNumber, String name, String surname, Timestamp birthdate, String gender, String city) {
         this.documentNumber = documentNumber;
         this.name = name;
         this.surname = surname;
         this.birthdate = birthdate;
         this.gender = gender;
+        this.city = city;
     }
 
     public int getBookNumber() {
@@ -56,6 +60,7 @@ public class Student {
                 ", surname='" + surname + '\'' +
                 ", birthdate=" + birthdate +
                 ", gender='" + gender + '\'' +
+                ", city='" + city + '\'' +
                 '}';
     }
 
