@@ -18,19 +18,19 @@ public class StudentRepositoryImpl implements StudentRepository {
     }
 
     @Override
-    public void save(Student s) {
-    	if (s.getBookNumber() == null) {
+    public Student save(Student s) {
+    	if (s.getBookNumber() != -1)
     		em.persist(s);
-    	} else {
+        else
     		s = em.merge(s);
-    	}
+        return s;
     }
 
     @Override
-    public List<Student> findAll(String orderCriterio) {
+    public List<Student> findAll(String orderCriteria) {
     	
-    	List<Student> students = em.createQuery("SELECT s FROM students ORDER BY s.?1")
-    			.setParameter(1, orderCriterio)
+    	List<Student> students = em.createQuery("SELECT s FROM Student s ORDER BY s.?1")
+    			.setParameter(1, orderCriteria)
     			.getResultList();
     	
         return students;

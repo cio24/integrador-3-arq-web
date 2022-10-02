@@ -6,13 +6,13 @@ import main.java.entities.Student;
 import java.util.List;
 
 public interface StudentRepository {
-    void save(Student s);
+    Student save(Student s);
 
     /**
      *
      * @param orderCriteria column name of the student entity to use to sort ascending students to be returned
      */
-    List<Student> findAll(String orderCriterio);
+    List<Student> findAll(String orderCriteria);
 
     Student findByBookNumber(int bookNumber);
 
