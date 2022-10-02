@@ -21,7 +21,17 @@ public class InscriptionRepositoryImpl implements InscriptionRepository {
 
     @Override
     public List<CareerReportDTO> getReports() {
-        return null;
+        String query = "SELECT c.name, e.year, e.enrolled, IFNULL(g.graduated,'0') AS graduated FROM careers c\n" +
+                "\tJOIN (SELECT career, YEAR(inscriptionDate) AS year, COUNT(*) AS enrolled FROM inscriptions GROUP BY career, year)\n" +
+                "\t\tAS e\n" +
+                "        ON e.career = c.careerId \n" +
+                "\tLEFT JOIN \n" +
+                "\t\t(SELECT career, YEAR(graduationDate) AS year, COUNT(*) AS graduated FROM inscriptions where graduationDate IS NOT NULL GROUP BY career, year)\n" +
+                "\t\tAS g \n" +
+                "\t\tON g.career = e.career AND g.year = e.year\n" +
+                "ORDER BY c.careerId, e.year";
+
+        return this.em.createNativeQuery(query,CareerReportDTO.class).getResultList();
     }
 
     @Override
