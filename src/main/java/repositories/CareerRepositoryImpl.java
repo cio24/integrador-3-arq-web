@@ -13,8 +13,8 @@ public class CareerRepositoryImpl implements CareerRepository {
     }
 
     @Override
-    public void save(Career c) {
-
+    public Career save(Career c) {
+        return null;
     }
 
     @Override

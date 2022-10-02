@@ -16,8 +16,8 @@ public class StudentRepositoryImpl implements StudentRepository {
     }
 
     @Override
-    public void save(Student s) {
-
+    public Student save(Student s) {
+        return null;
     }
 
     @Override

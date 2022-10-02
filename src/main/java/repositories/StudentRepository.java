@@ -6,7 +6,7 @@ import main.java.entities.Student;
 import java.util.List;
 
 public interface StudentRepository {
-    void save(Student s);
+    Student save(Student s);
 
     /**
      *
