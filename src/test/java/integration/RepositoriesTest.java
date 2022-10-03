@@ -3,10 +3,7 @@ package test.java.integration;
 import main.java.entities.Career;
 import main.java.entities.Inscription;
 import main.java.entities.Student;
-import main.java.repositories.CareerRepository;
-import main.java.repositories.InscriptionRepository;
-import main.java.repositories.StudentRepositoryImpl;
-import main.java.repositories.StudentRepository;
+import main.java.repositories.*;
 import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -35,10 +32,12 @@ public class RepositoriesTest {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("Example");
         EntityManager em = emf.createEntityManager();
         studentRepository = new StudentRepositoryImpl(em);
+        inscriptionRepository = new InscriptionRepositoryImpl(em);
+        careerRepository = new CareerRepositoryImpl(em);
         Timestamp birthdate = createTimestamp("31/03/1995");
-        Student cio = new Student(1234,"Cio","Casado",birthdate,"male","mar del plata");
-        Student lu = new Student(3231,"Lu","Blanco",birthdate,"female", "tandil");
-        Student agus = new Student(2342,"Agus","BedRossian",birthdate,"female","tandil");
+        cio = new Student(1234,"Cio","Casado",birthdate,"male","mar del plata");
+        lu = new Student(3231,"Lu","Blanco",birthdate,"female", "tandil");
+        agus = new Student(2342,"Agus","Bedrossian",birthdate,"female","tandil");
     }
 
     @After
@@ -46,7 +45,6 @@ public class RepositoriesTest {
         inscriptionRepository.deleteAll();
         studentRepository.deleteAll();
         careerRepository.deleteAll();
-
     }
 
     private static Timestamp createTimestamp(String dateString){
