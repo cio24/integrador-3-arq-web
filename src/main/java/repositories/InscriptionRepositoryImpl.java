@@ -16,7 +16,7 @@ public class InscriptionRepositoryImpl implements InscriptionRepository {
     }
     @Override
     public void save(Inscription i) {
-
+        this.em.persist(i);
     }
 
     @Override
