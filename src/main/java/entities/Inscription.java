@@ -1,12 +1,13 @@
 package main.java.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
 
 @Entity
 @Table(name = "inscriptions")
-public class Inscription {
+public class Inscription implements Serializable {
     @Id
     @ManyToOne
     @JoinColumn
