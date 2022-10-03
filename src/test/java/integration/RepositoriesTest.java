@@ -106,7 +106,7 @@ public class RepositoriesTest {
     @Test
     public void findAllStudentsTest(){
         createStudents();
-        List<Student> studentsFound = studentRepository.findAll("name");
+        List<Student> studentsFound = studentRepository.findAllSortedByName("DESC");
 		for (Student s: studentsFound)
 			System.out.println(s);
         assertTrue(studentsFound.get(0).equals(agus) && studentsFound.get(1).equals(cio) && studentsFound.get(2).equals(lu));

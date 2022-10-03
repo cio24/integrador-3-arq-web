@@ -1,8 +1,12 @@
 package main.java.repositories;
 
+import main.java.DTO.CareerReportDTO;
 import main.java.entities.Career;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class CareerRepositoryImpl implements CareerRepository {
@@ -19,8 +23,12 @@ public class CareerRepositoryImpl implements CareerRepository {
 
     @Override
     public List<Career> findWithEnrolledStudents() {
-        return null;
+    	  
+    	List <Career> careers =  em.createQuery("SELECT c.name FROM Career c, Inscription i WHERE c.id = i.career GROUP BY c.name HAVING COUNT(i.student) ORDER BY DESC").getResultList();
+    	return careers;
     }
+    
+    
 
     @Override
     public void deleteAll() {

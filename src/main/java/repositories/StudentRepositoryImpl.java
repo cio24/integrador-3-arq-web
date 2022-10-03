@@ -5,7 +5,7 @@ import main.java.entities.Student;
 
 import javax.persistence.EntityManager;
 
-import edu.isistan.dao.Persona;
+import javax.persistence.Query;
 
 import java.util.Collections;
 import java.util.List;
@@ -18,22 +18,27 @@ public class StudentRepositoryImpl implements StudentRepository {
     }
 
     @Override
-    public void save(Student s) {
-    	if (s.getBookNumber() == null) {
+    public Student save(Student s) {
+    	if (s.getBookNumber() != -1) {
+    		em.getTransaction().begin();
     		em.persist(s);
-    	} else {
+    		em.getTransaction().commit();
+    		
+    	}else {
     		s = em.merge(s);
     	}
+        return s;
     }
 
     @Override
-    public List<Student> findAll(String orderCriterio) {
+    public List<Student> findAllSortedByName(String order) {
     	
-    	List<Student> students = em.createQuery("SELECT s FROM students ORDER BY s.?1")
-    			.setParameter(1, orderCriterio)
-    			.getResultList();
-    	
-        return students;
+    	List<Student> students;
+    	Query query= em.createQuery("SELECT s FROM Students ORDER BY s.name :order");
+		query.setParameter("order", order);
+		students = query.getResultList();
+		return students;
+        
     }
 
     @Override
