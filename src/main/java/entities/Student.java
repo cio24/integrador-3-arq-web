@@ -10,7 +10,7 @@ public class Student  {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column
-    private int bookNumber;
+    private int bookNumber = -1;
 
     @Column
     private int documentNumber;
@@ -76,8 +76,4 @@ public class Student  {
 
         return this.toString().equals(s.toString());
     }
-
-    
-    
-    
 }
