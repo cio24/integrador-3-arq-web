@@ -15,22 +15,44 @@ public class InscriptionRepositoryImpl implements InscriptionRepository {
         this.em = em;
     }
     @Override
-    public void save(Inscription i) {
-
+    public void save(Inscription inscription) {
+        em.getTransaction().begin();
+        this.em.createNativeQuery("INSERT INTO inscriptions (student_bookNumber, career_id, inscriptionDate, graduationDate)" +
+                        "VALUES (:student_bookNumber, :career_id, :inscriptionDate, :graduationDate)")
+                .setParameter("student_bookNumber", inscription.getStudent().getBookNumber())
+                .setParameter("career_id", inscription.getCareer().getId())
+                .setParameter("inscriptionDate", inscription.getInscriptionDate())
+                .setParameter("graduationDate", inscription.getGraduationDate()).executeUpdate();
+        em.getTransaction().commit();
     }
 
     @Override
     public List<CareerReportDTO> getReports() {
-        return null;
+        String query = "SELECT c.name, e.year, e.enrolled, IFNULL(g.graduated,'0') AS graduated FROM careers c\n" +
+                "\tJOIN (SELECT career, YEAR(inscriptionDate) AS year, COUNT(*) AS enrolled FROM inscriptions GROUP BY career, year)\n" +
+                "\t\tAS e\n" +
+                "        ON e.career = c.careerId \n" +
+                "\tLEFT JOIN \n" +
+                "\t\t(SELECT career, YEAR(graduationDate) AS year, COUNT(*) AS graduated FROM inscriptions where graduationDate IS NOT NULL GROUP BY career, year)\n" +
+                "\t\tAS g \n" +
+                "\t\tON g.career = e.career AND g.year = e.year\n" +
+                "ORDER BY c.careerId, e.year";
+
+        return this.em.createNativeQuery(query,CareerReportDTO.class).getResultList();
     }
 
     @Override
     public void deleteAll() {
+        em.getTransaction().begin();
         this.em.createQuery("delete from Inscription").executeUpdate();
+        em.getTransaction().commit();
     }
 
     @Override
-    public Inscription findByStudentAndCareer(Student cio, Career ingenieria) {
-        return null;
+    public Inscription findByStudentAndCareer(Student s, Career c) {
+        return this.em.createQuery("select i from Inscription i where i.student = :s and i.career = :c",Inscription.class)
+                .setParameter("s",s)
+                .setParameter("c",c)
+                .getSingleResult();
     }
 }

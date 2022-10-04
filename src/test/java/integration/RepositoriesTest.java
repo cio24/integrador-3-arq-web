@@ -3,12 +3,9 @@ package test.java.integration;
 import main.java.entities.Career;
 import main.java.entities.Inscription;
 import main.java.entities.Student;
-import main.java.repositories.CareerRepository;
-import main.java.repositories.InscriptionRepository;
-import main.java.repositories.StudentRepositoryImpl;
-import net.bytebuddy.asm.Advice.OffsetMapping.Sort;
-import main.java.repositories.StudentRepository;
+import main.java.repositories.*;
 import org.junit.After;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -32,14 +29,23 @@ public class RepositoriesTest {
     private static Career ingenieria, tudai, fisica;
 
     @BeforeClass
-    public static void instanciateObjects(){
+    public static void instantiateEntityManagerAndRepositories(){
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("Example");
         EntityManager em = emf.createEntityManager();
         studentRepository = new StudentRepositoryImpl(em);
+        inscriptionRepository = new InscriptionRepositoryImpl(em);
+        careerRepository = new CareerRepositoryImpl(em);
+    }
+
+    @Before
+    public void instantiateEntities(){
         Timestamp birthdate = createTimestamp("31/03/1995");
-        Student cio = new Student(1234,"Cio","Casado",birthdate,"male","mar del plata");
-        Student lu = new Student(3231,"Lu","Blanco",birthdate,"female", "tandil");
-        Student agus = new Student(2342,"Agus","BedRossian",birthdate,"female","tandil");
+        cio = new Student(1234,"Cio","Casado",birthdate,"male","mar del plata");
+        lu = new Student(3231,"Lu","Blanco",birthdate,"female", "tandil");
+        agus = new Student(2342,"Agus","Bedrossian",birthdate,"female","tandil");
+        ingenieria = new Career("Ingeniería de Sistemas");
+        tudai = new Career("Tecnicatura Universitaria de Desarrollo de Aplicaciones Informaticas");
+        fisica = new Career("Licenciatura en Física");
     }
 
     @After
@@ -47,7 +53,6 @@ public class RepositoriesTest {
         inscriptionRepository.deleteAll();
         studentRepository.deleteAll();
         careerRepository.deleteAll();
-
     }
 
     private static Timestamp createTimestamp(String dateString){
@@ -69,10 +74,6 @@ public class RepositoriesTest {
     }
 
     private static void createCareers(){
-        ingenieria = new Career("Ingeniería de Sistemas");
-        tudai = new Career("Tecnicatura Universitaria de Desarrollo de Aplicaciones Informaticas");
-        fisica = new Career("Licenciatura en Física");
-
         careerRepository.save(ingenieria);
         careerRepository.save(tudai);
         careerRepository.save(fisica);
@@ -84,6 +85,8 @@ public class RepositoriesTest {
      */
     @Test
     public void saveAndFindStudentsByBookNumberTest(){
+        Timestamp birthdate = createTimestamp("31/03/1995");
+        Student cio = new Student(1234,"Cio","Casado",birthdate,"male","mar del plata");
         studentRepository.save(cio);
         Student studentFound = studentRepository.findByBookNumber(cio.getBookNumber());
         assertEquals(studentFound,cio);
@@ -94,6 +97,13 @@ public class RepositoriesTest {
      */
     @Test
     public void saveInscriptionTest(){
+        Timestamp birthdate = createTimestamp("31/03/1995");
+        Student cio = new Student(1234,"Cio","Casado",birthdate,"male","mar del plata");
+        studentRepository.save(cio);
+
+        Career ingenieria = new Career("Ingeniería de Sistemas");
+        careerRepository.save(ingenieria);
+
         Inscription cioInscription = new Inscription(cio,ingenieria);
         inscriptionRepository.save(cioInscription);
         Inscription inscriptionFound = inscriptionRepository.findByStudentAndCareer(cio,ingenieria);
@@ -106,9 +116,7 @@ public class RepositoriesTest {
     @Test
     public void findAllStudentsTest(){
         createStudents();
-        List<Student> studentsFound = studentRepository.findAllSortedByName("DESC");
-		for (Student s: studentsFound)
-			System.out.println(s);
+        List<Student> studentsFound = studentRepository.findAllSortedByName();
         assertTrue(studentsFound.get(0).equals(agus) && studentsFound.get(1).equals(cio) && studentsFound.get(2).equals(lu));
     }
 

@@ -1,12 +1,7 @@
 package main.java.repositories;
 
-import main.java.DTO.CareerReportDTO;
 import main.java.entities.Career;
-
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class CareerRepositoryImpl implements CareerRepository {
@@ -17,21 +12,27 @@ public class CareerRepositoryImpl implements CareerRepository {
     }
 
     @Override
-    public void save(Career c) {
+    public Career save(Career c) {
+        if (c.getId() == -1) {
+            em.getTransaction().begin();
+            em.persist(c);
+            em.getTransaction().commit();
 
+        }else {
+            c = em.merge(c);
+        }
+        return c;
     }
 
     @Override
     public List<Career> findWithEnrolledStudents() {
-    	  
-    	List <Career> careers =  em.createQuery("SELECT c.name FROM Career c, Inscription i WHERE c.id = i.career GROUP BY c.name HAVING COUNT(i.student) ORDER BY DESC").getResultList();
-    	return careers;
+    	return em.createQuery("SELECT c FROM Inscription  i JOIN i.career c GROUP BY i.career ORDER BY COUNT(i.career) DESC").getResultList();
     }
-    
-    
 
     @Override
     public void deleteAll() {
+        em.getTransaction().begin();
         this.em.createQuery("delete from Career").executeUpdate();
+        em.getTransaction().commit();
     }
 }

@@ -1,10 +1,12 @@
 package main.java.DTO;
 
 public class CareerReportDTO {
-    private int totalGraduated;
-    private int totalEnrolled;
-    private int year;
+
     private String careerName;
+    private int year;
+    private int totalEnrolled;
+
+    private int totalGraduated;
 
     @Override
     public String toString() {

@@ -1,12 +1,13 @@
 package main.java.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
 
 @Entity
 @Table(name = "inscriptions")
-public class Inscription {
+public class Inscription implements Serializable {
     @Id
     @ManyToOne
     @JoinColumn
@@ -40,5 +41,33 @@ public class Inscription {
         this.career = career;
         this.inscriptionDate = inscriptionDate;
         this.graduationDate = graduationDate;
+    }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public Career getCareer() {
+        return career;
+    }
+
+    public Timestamp getInscriptionDate() {
+        return inscriptionDate;
+    }
+
+    public Timestamp getGraduationDate() {
+        return graduationDate;
+    }
+
+    public boolean equals(Object o){
+        if (o == this)
+            return true;
+
+        if (!(o instanceof Inscription))
+            return false;
+
+        Inscription i = (Inscription) o;
+
+        return this.student.equals(i.student) && this.career.equals(i.career);
     }
 }

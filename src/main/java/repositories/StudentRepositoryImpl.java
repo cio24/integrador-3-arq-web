@@ -4,11 +4,9 @@ import main.java.entities.Career;
 import main.java.entities.Student;
 
 import javax.persistence.EntityManager;
-
 import javax.persistence.Query;
-
-import java.util.Collections;
 import java.util.List;
+import java.util.Queue;
 
 public class StudentRepositoryImpl implements StudentRepository {
     private EntityManager em;
@@ -19,8 +17,7 @@ public class StudentRepositoryImpl implements StudentRepository {
 
     @Override
     public Student save(Student s) {
-<<<<<<< HEAD
-    	if (s.getBookNumber() != -1) {
+    	if (s.getBookNumber() == -1) {
     		em.getTransaction().begin();
     		em.persist(s);
     		em.getTransaction().commit();
@@ -28,53 +25,44 @@ public class StudentRepositoryImpl implements StudentRepository {
     	}else {
     		s = em.merge(s);
     	}
-=======
-    	if (s.getBookNumber() != -1)
-    		em.persist(s);
-        else
-    		s = em.merge(s);
->>>>>>> 4d0bc1dc34f851399a66012b8059eb1165e087d9
         return s;
     }
 
     @Override
-<<<<<<< HEAD
-    public List<Student> findAllSortedByName(String order) {
-    	
-    	List<Student> students;
-    	Query query= em.createQuery("SELECT s FROM Students ORDER BY s.name :order");
-		query.setParameter("order", order);
-		students = query.getResultList();
-		return students;
-        
-=======
-    public List<Student> findAll(String orderCriteria) {
-    	
-    	List<Student> students = em.createQuery("SELECT s FROM Student s ORDER BY s.?1")
-    			.setParameter(1, orderCriteria)
-    			.getResultList();
-    	
+    public List<Student> findAllSortedByName() {
+        List<Student> students;
+        Query query = em.createQuery("SELECT s FROM Student s ORDER BY s.name");
+        students = query.getResultList();
         return students;
->>>>>>> 4d0bc1dc34f851399a66012b8059eb1165e087d9
     }
 
     @Override
     public Student findByBookNumber(int bookNumber) {
-        return null;
+        return (Student) this.em.createQuery("SELECT s FROM Student s WHERE s.bookNumber = :bookNumber")
+                .setParameter("bookNumber", bookNumber)
+                .getSingleResult();
     }
 
     @Override
     public List<Student> findByGender(String gender) {
-        return null;
+        return this.em.createQuery("SELECT s FROM Student s WHERE s.gender = :gender")
+                .setParameter("gender", gender)
+                .getResultList();
     }
 
     @Override
     public List<Student> findByCareerAndCity(Career c, String city) {
-        return null;
+        return this.em.createQuery("select s from Inscription i join i.student s join i.career c where c.id = :careerId and s.city = :city")
+                .setParameter("careerId",c.getId())
+                .setParameter("city",city)
+                .getResultList();
     }
 
     @Override
     public void deleteAll() {
+        em.getTransaction().begin();
         this.em.createQuery("delete from Student").executeUpdate();
+        em.getTransaction().commit();
+
     }
 }
