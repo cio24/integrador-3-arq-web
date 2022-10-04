@@ -27,12 +27,16 @@ public class StudentRepositoryImpl implements StudentRepository {
 
     @Override
     public Student findByBookNumber(int bookNumber) {
-        return null;
+        return (Student) this.em.createQuery("SELECT s FROM Student s WHERE s.bookNumber = :bookNumber")
+                .setParameter("bookNumber", bookNumber)
+                .getSingleResult();
     }
 
     @Override
     public List<Student> findByGender(String gender) {
-        return null;
+        return this.em.createQuery("SELECT s FROM Student s WHERE s.gender = :gender")
+                .setParameter("gender", gender)
+                .getResultList();
     }
 
     @Override

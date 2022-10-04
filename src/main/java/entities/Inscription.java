@@ -42,4 +42,20 @@ public class Inscription implements Serializable {
         this.inscriptionDate = inscriptionDate;
         this.graduationDate = graduationDate;
     }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public Career getCareer() {
+        return career;
+    }
+
+    public Timestamp getInscriptionDate() {
+        return inscriptionDate;
+    }
+
+    public Timestamp getGraduationDate() {
+        return graduationDate;
+    }
 }

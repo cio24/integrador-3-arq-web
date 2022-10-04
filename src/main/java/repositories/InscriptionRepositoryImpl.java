@@ -15,8 +15,13 @@ public class InscriptionRepositoryImpl implements InscriptionRepository {
         this.em = em;
     }
     @Override
-    public void save(Inscription i) {
-
+    public void save(Inscription inscription) {
+        this.em.createNativeQuery("INSERT INTO Inscription (student, career, inscriptionDate, graduationDate)" +
+                "VALUES (:student, :career, :inscriptionDate, :graduationDate)")
+                .setParameter("student", inscription.getStudent())
+                .setParameter("career", inscription.getCareer())
+                .setParameter("inscriptionDate", inscription.getInscriptionDate())
+                .setParameter("graduationDate", inscription.getGraduationDate());
     }
 
     @Override
