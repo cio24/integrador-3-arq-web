@@ -12,7 +12,7 @@ public interface InscriptionRepository {
      * Enroll a student in a career
      * @param i inscription that contains the student and the career
      */
-    void save(Inscription i);
+    Inscription save(Inscription i);
 
     /**
      * get reports with data of the careers

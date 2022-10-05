@@ -8,12 +8,16 @@ import java.util.Date;
 @Entity
 @Table(name = "inscriptions")
 public class Inscription implements Serializable {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column
+    private int id = -1;
+
     @ManyToOne
     @JoinColumn
     private Student student;
 
-    @Id
     @ManyToOne
     @JoinColumn
     private Career career;
@@ -43,20 +47,8 @@ public class Inscription implements Serializable {
         this.graduationDate = graduationDate;
     }
 
-    public Student getStudent() {
-        return student;
-    }
-
-    public Career getCareer() {
-        return career;
-    }
-
-    public Timestamp getInscriptionDate() {
-        return inscriptionDate;
-    }
-
-    public Timestamp getGraduationDate() {
-        return graduationDate;
+    public int getId(){
+        return id;
     }
 
     public boolean equals(Object o){
@@ -68,6 +60,6 @@ public class Inscription implements Serializable {
 
         Inscription i = (Inscription) o;
 
-        return this.student.equals(i.student) && this.career.equals(i.career);
+        return this.getId()==i.getId();
     }
 }
