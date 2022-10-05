@@ -1,5 +1,6 @@
 package test.java.integration;
 
+import main.java.DTO.CareerReportDTO;
 import main.java.entities.Career;
 import main.java.entities.Inscription;
 import main.java.entities.Student;
@@ -16,12 +17,13 @@ import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class Ejercicio2Test {
+public class EjerciciosTest {
     private static InscriptionRepository inscriptionRepository;
     private static StudentRepository studentRepository;
     private static CareerRepository careerRepository;
@@ -163,6 +165,65 @@ public class Ejercicio2Test {
         List<Student> studentsFound = studentRepository.findByCareerAndCity(tudai,"tandil");
         // cio: de ingenieria y tandil, agus de tudai y balcarce y lu de tudai y tandil
         assertTrue(studentsFound.contains(lu) && !studentsFound.contains(agus) && !studentsFound.contains(cio));
+    }
+
+    /**
+     * 3) Generar un reporte de las carreras, que para cada carrera incluya información de los
+     * inscriptos y egresados por año. Se deben ordenar las carreras alfabéticamente, y presentar
+     * los años de manera cronológica.
+     */
+    @Test
+    public void generarReporteDeCarrerasTest(){
+        createCareers();
+
+        createInscriptions(15,ingenieria,2015,-1);
+        createInscriptions(5,ingenieria,2015,2022);
+        createInscriptions(3,ingenieria,2022,2030);
+
+        createInscriptions(3,fisica,2016,2022);
+        createInscriptions(1,fisica,2020,2022);
+
+        CareerReportDTO ingenieria2015 = new CareerReportDTO("ingenieria",2015,20,0);
+        CareerReportDTO ingenieria2022 = new CareerReportDTO("ingenieria",2022,3,5);
+        CareerReportDTO ingenieria2030 = new CareerReportDTO("ingenieria",2030,0,3);
+        CareerReportDTO fisica2016 = new CareerReportDTO("fisica",2016,3,0);
+        CareerReportDTO fisica2020 = new CareerReportDTO("fisica",2020,1,0);
+        CareerReportDTO fisica2022 = new CareerReportDTO("fisica",2022,0,4);
+
+        List<CareerReportDTO> expectedReports = new ArrayList<>();
+        expectedReports.add(ingenieria2015);
+        expectedReports.add(ingenieria2022);
+        expectedReports.add(ingenieria2030);
+        expectedReports.add(fisica2016);
+        expectedReports.add(fisica2020);
+        expectedReports.add((fisica2022);
+
+
+        List<CareerReportDTO> resultReports = inscriptionRepository.getReports();
+
+        if(resultReports.size() != 6)
+            assertTrue(false);
+
+        for(int i = 0; i < 6; i++)
+            if(!resultReports.get(i).equals(expectedReports.get(i)))
+                assertTrue(false);
+
+        assertTrue(true);
+    }
+
+    public static void createInscriptions(int amount, Career career, int inscriptionYear, int graduationYear){
+        Timestamp birthdate = createTimestamp("31/03/1995");
+        Timestamp inscriptionDate = createTimestamp("01/01/" + inscriptionYear);
+        Timestamp graduationDate = graduationYear != 1 ? createTimestamp("01/01/" + graduationYear) : null;
+
+        Student randomStudent;
+        Inscription ins;
+        for(int i = 0; i < amount; i++){
+            randomStudent = new Student(11111111,"aName","aSurname",birthdate,"aGender","aCity");
+            studentRepository.save(randomStudent);
+            ins = new Inscription(randomStudent,career,inscriptionDate,graduationDate);
+            inscriptionRepository.save(ins);
+        }
     }
 
 }
