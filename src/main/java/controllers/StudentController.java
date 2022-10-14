@@ -32,4 +32,10 @@ public class StudentController {
         return null;
     }
 
+    @GetMapping()
+    public List<StudentDTO> getAllByGender(@RequestParam String gender){
+        return studentSerivce.getAllByGender(gender);
+    }
+
+
 }

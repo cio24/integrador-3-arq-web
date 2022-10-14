@@ -6,6 +6,7 @@ import main.java.repositories.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -31,5 +32,15 @@ public class StudentSerivce {
         List<Student> students = studentRepository.findAllSortedByName();
         //generate dtos
         return null;
+    }
+
+    public List<StudentDTO> getAllByGender(String gender){
+        List<Student> students = this.studentRepository.findByGender(gender);
+        List<StudentDTO> studentsDTO = new ArrayList<>();
+
+        for(Student s: students){
+            studentsDTO.add(new StudentDTO(s.getDocumentNumber(),s.getName(),s.getSurname(),s.getBirthdate(),s.getGender(),s.getCity()));
+        }
+        return studentsDTO;
     }
 }
