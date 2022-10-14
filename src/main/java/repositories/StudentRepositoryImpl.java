@@ -2,12 +2,14 @@ package main.java.repositories;
 
 import main.java.entities.Career;
 import main.java.entities.Student;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.util.List;
-import java.util.Queue;
 
+@Repository
 public class StudentRepositoryImpl implements StudentRepository {
     private EntityManager em;
 
@@ -15,13 +17,11 @@ public class StudentRepositoryImpl implements StudentRepository {
         this.em = em;
     }
 
+    @Transactional
     @Override
     public Student save(Student s) {
     	if (s.getBookNumber() == -1) {
-    		em.getTransaction().begin();
     		em.persist(s);
-    		em.getTransaction().commit();
-    		
     	}else {
     		s = em.merge(s);
     	}
