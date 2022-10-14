@@ -13,6 +13,30 @@ public class Student  {
     @Column
     private int bookNumber = -1;
 
+    public int getDocumentNumber() {
+        return documentNumber;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public Timestamp getBirthdate() {
+        return birthdate;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
     @Column
     private int documentNumber;
 

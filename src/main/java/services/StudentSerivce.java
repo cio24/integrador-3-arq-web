@@ -22,6 +22,11 @@ public class StudentSerivce {
         studentRepository.save(s);
     }
 
+    public StudentDTO getByBookNumber(int bookNumber){
+        Student s = studentRepository.findByBookNumber(bookNumber);
+        return new StudentDTO(s.getDocumentNumber(),s.getName(),s.getSurname(),s.getBirthdate(),s.getGender(),s.getCity());
+    }
+
     public List<StudentDTO> getAllSortedByName(){
         List<Student> students = studentRepository.findAllSortedByName();
         //generate dtos

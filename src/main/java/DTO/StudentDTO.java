@@ -14,6 +14,15 @@ public class StudentDTO {
     private String gender;
     private String city;
 
+    public StudentDTO(int documentNumber, String name, String surname, Timestamp birthdate, String gender, String city) {
+        this.documentNumber = documentNumber;
+        this.name = name;
+        this.surname = surname;
+        this.birthdate = birthdate;
+        this.gender = gender;
+        this.city = city;
+    }
+
     public int getDocumentNumber() {
         return documentNumber;
     }

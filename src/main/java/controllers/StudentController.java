@@ -20,6 +20,11 @@ public class StudentController {
         studentSerivce.save(s);
     }
 
+    @GetMapping("/{id}")
+    public StudentDTO getByBookName(@PathVariable String id){
+        return studentSerivce.getByBookNumber(Integer.valueOf(id));
+    }
+
     @RequestMapping(value = "/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<StudentDTO> getAllSortedByName(@RequestParam String sortBy){
         if(sortBy.equals("name"))
