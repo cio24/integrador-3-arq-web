@@ -3,7 +3,6 @@ package main.java.controllers;
 import main.java.DTO.StudentDTO;
 import main.java.services.StudentSerivce;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,17 +24,8 @@ public class StudentController {
         return studentSerivce.getByBookNumber(Integer.valueOf(id));
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<StudentDTO> getAllSortedByName(@RequestParam String sortBy){
-        if(sortBy.equals("name"))
-            return studentSerivce.getAllSortedByName();
-        return null;
-    }
-
     @GetMapping()
     public List<StudentDTO> getAllByGender(@RequestParam String gender){
         return studentSerivce.getAllByGender(gender);
     }
-
-
 }
