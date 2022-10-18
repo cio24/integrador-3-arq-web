@@ -2,12 +2,24 @@ package main.java.DTO;
 
 public class InscriptionDTO {
 
-    private String studentName;
+    private int studentBookNumber;
 
-    private String careerName;
+    private int careerId;
 
-    public InscriptionDTO(String studentName, String careerName) {
-        this.studentName = studentName;
-        this.careerName = careerName;
+    public InscriptionDTO(){
+        super();
+    }
+
+    public InscriptionDTO(int studentBookNumber, int careerId) {
+        this.studentBookNumber = studentBookNumber;
+        this.careerId = careerId;
+    }
+
+    public int getStudentBookNumber() {
+        return studentBookNumber;
+    }
+
+    public int getCareerId() {
+        return careerId;
     }
 }

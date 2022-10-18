@@ -37,4 +37,11 @@ public class CareerRepositoryImpl implements CareerRepository {
         this.em.createQuery("delete from Career").executeUpdate();
         em.getTransaction().commit();
     }
+
+    @Override
+    public Career findById(int id) {
+        return this.em.createQuery("SELECT c FROM Career c WHERE c.id = :id", Career.class)
+                .setParameter("id", id)
+                .getSingleResult();
+    }
 }

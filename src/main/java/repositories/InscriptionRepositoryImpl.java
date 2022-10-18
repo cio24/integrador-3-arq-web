@@ -4,8 +4,8 @@ import main.java.DTO.CareerReportDTO;
 import main.java.entities.Career;
 import main.java.entities.Inscription;
 import main.java.entities.Student;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.math.BigInteger;
@@ -21,13 +21,12 @@ public class InscriptionRepositoryImpl implements InscriptionRepository {
     public InscriptionRepositoryImpl(EntityManager em) {
         this.em = em;
     }
+
+    @Transactional
     @Override
     public Inscription save(Inscription i) {
         if (i.getId() == -1) {
-            em.getTransaction().begin();
             em.persist(i);
-            em.getTransaction().commit();
-
         }else {
             i = em.merge(i);
         }

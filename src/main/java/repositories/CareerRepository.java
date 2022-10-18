@@ -15,4 +15,6 @@ public interface CareerRepository {
     List<Career> findWithEnrolledStudents();
 
     void deleteAll();
+
+    Career findById(int id);
 }
