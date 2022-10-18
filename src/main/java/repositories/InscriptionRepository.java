@@ -4,9 +4,11 @@ import main.java.DTO.CareerReportDTO;
 import main.java.entities.Career;
 import main.java.entities.Inscription;
 import main.java.entities.Student;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface InscriptionRepository {
     /**
      * Enroll a student in a career

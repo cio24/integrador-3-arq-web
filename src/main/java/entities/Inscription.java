@@ -51,6 +51,14 @@ public class Inscription implements Serializable {
         return id;
     }
 
+    public Student getStudent() {
+        return student;
+    }
+
+    public Career getCareer() {
+        return career;
+    }
+
     public boolean equals(Object o){
         if (o == this)
             return true;

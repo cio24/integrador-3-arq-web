@@ -4,13 +4,17 @@ import main.java.DTO.CareerReportDTO;
 import main.java.entities.Career;
 import main.java.entities.Inscription;
 import main.java.entities.Student;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class InscriptionRepositoryImpl implements InscriptionRepository {
+
+
     private EntityManager em;
 
     public InscriptionRepositoryImpl(EntityManager em) {
