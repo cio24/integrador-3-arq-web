@@ -5,7 +5,6 @@ import main.java.DTO.CareerDTO;
 import main.java.entities.Career;
 import main.java.repositories.CareerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
 import java.util.List;
