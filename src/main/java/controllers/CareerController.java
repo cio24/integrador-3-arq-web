@@ -15,7 +15,7 @@ public class CareerController {
     @Autowired
     CareerService careerSerivce;
 
-    @GetMapping
+    @GetMapping("/findWithEnrolledStudents")
     public List<CareerDTO> findWithEnrolledStudents(){
         return careerSerivce.findWithEnrolledStudents();
     }

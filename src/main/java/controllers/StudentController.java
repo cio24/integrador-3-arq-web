@@ -29,7 +29,7 @@ public class StudentController {
         return studentSerivce.getAllByGender(gender);
     }
 
-    @GetMapping()
+    @GetMapping("/findSortedByName")
     public List<StudentDTO> findAllSortedByName(){
         return studentSerivce.getAllSortedByName();
     }
