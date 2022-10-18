@@ -30,8 +30,12 @@ public class StudentSerivce {
 
     public List<StudentDTO> getAllSortedByName(){
         List<Student> students = studentRepository.findAllSortedByName();
-        //generate dtos
-        return null;
+        List<StudentDTO> studentsDTO = new ArrayList<>();
+
+        for(Student s: students){
+            studentsDTO.add(new StudentDTO(s.getDocumentNumber(),s.getName(),s.getSurname(),s.getBirthdate(),s.getGender(),s.getCity()));
+        }
+        return studentsDTO;
     }
 
     public List<StudentDTO> getAllByGender(String gender){
@@ -43,4 +47,5 @@ public class StudentSerivce {
         }
         return studentsDTO;
     }
+
 }
