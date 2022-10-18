@@ -14,7 +14,7 @@ public class StudentController {
     @Autowired
     StudentSerivce studentSerivce;
 
-    @PostMapping
+    @PostMapping()
     public void post(@RequestBody StudentDTO s){
         studentSerivce.save(s);
     }
@@ -33,4 +33,10 @@ public class StudentController {
     public List<StudentDTO> findAllSortedByName(){
         return studentSerivce.getAllSortedByName();
     }
+
+    @GetMapping("/byCareerAndCity")
+    public List<StudentDTO> findAllByCareerAndCity(@RequestParam String careerId, @RequestParam String city){
+        return studentSerivce.findAllByCareerAndCity(careerId, city);
+    }
+
 }

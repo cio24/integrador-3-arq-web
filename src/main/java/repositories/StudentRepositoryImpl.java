@@ -51,9 +51,9 @@ public class StudentRepositoryImpl implements StudentRepository {
     }
 
     @Override
-    public List<Student> findByCareerAndCity(Career c, String city) {
+    public List<Student> findAllByCareerAndCity(String careerId, String city) {
         return this.em.createQuery("select s from Inscription i join i.student s join i.career c where c.id = :careerId and s.city = :city")
-                .setParameter("careerId",c.getId())
+                .setParameter("careerId", careerId)
                 .setParameter("city",city)
                 .getResultList();
     }
@@ -63,6 +63,5 @@ public class StudentRepositoryImpl implements StudentRepository {
         em.getTransaction().begin();
         this.em.createQuery("delete from Student").executeUpdate();
         em.getTransaction().commit();
-
     }
 }

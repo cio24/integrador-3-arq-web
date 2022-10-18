@@ -48,4 +48,14 @@ public class StudentSerivce {
         return studentsDTO;
     }
 
+    public List<StudentDTO> findAllByCareerAndCity(String careerId, String city){
+        List<Student> students = this.studentRepository.findAllByCareerAndCity(careerId, city);
+        List<StudentDTO> studentDTOS = new ArrayList<>();
+
+        for(Student student: students){
+            studentDTOS.add(new StudentDTO(student.getDocumentNumber(), student.getName(), student.getSurname(),
+                    student.getBirthdate(), student.getGender(), student.getCity()));
+        }
+        return studentDTOS;
+    }
 }

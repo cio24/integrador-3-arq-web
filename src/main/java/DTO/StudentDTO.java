@@ -14,10 +14,6 @@ public class StudentDTO {
     private String gender;
     private String city;
 
-    public StudentDTO(){
-        super();
-    }
-
     public StudentDTO(int documentNumber, String name, String surname, Timestamp birthdate, String gender, String city) {
         this.documentNumber = documentNumber;
         this.name = name;
