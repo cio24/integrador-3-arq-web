@@ -3,7 +3,9 @@ package main.java.controllers;
 import main.java.DTO.StudentDTO;
 import main.java.services.StudentSerivce;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -25,8 +27,16 @@ public class StudentController {
     }
 
     @GetMapping()
-    public List<StudentDTO> getAllByGender(@RequestParam String gender){
-        return studentSerivce.getAllByGender(gender);
+    public List<StudentDTO> getMany(@RequestParam(required = false) String gender, @RequestParam(required = false) String sortBy){
+        if(gender != null)
+            return  studentSerivce.getAllByGender(gender);
+
+        if(sortBy != null && sortBy.equals("name"))
+            return studentSerivce.getAllSortedByName();
+
+        throw new ResponseStatusException(
+                HttpStatus.NOT_FOUND, "entity not found"
+        );
     }
 
     @GetMapping("/findSortedByName")
