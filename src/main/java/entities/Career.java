@@ -25,6 +25,10 @@ public class Career {
         return id;
     }
 
+    public String getName() {
+        return this.name;
+    }
+
     @Override
     public String toString() {
         return "Career{" +

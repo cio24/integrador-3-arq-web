@@ -28,4 +28,9 @@ public class StudentController {
     public List<StudentDTO> getAllByGender(@RequestParam String gender){
         return studentSerivce.getAllByGender(gender);
     }
+
+    @GetMapping()
+    public List<StudentDTO> findAllSortedByName(){
+        return studentSerivce.getAllSortedByName();
+    }
 }
