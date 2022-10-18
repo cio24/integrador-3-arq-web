@@ -5,13 +5,14 @@ import main.java.entities.Career;
 import main.java.entities.Inscription;
 import main.java.entities.Student;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
+@Repository
 public class InscriptionRepositoryImpl implements InscriptionRepository {
 
 

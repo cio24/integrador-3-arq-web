@@ -1,9 +1,13 @@
 package main.java.repositories;
 
 import main.java.entities.Career;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+
 import javax.persistence.EntityManager;
 import java.util.List;
 
+@Repository
 public class CareerRepositoryImpl implements CareerRepository {
     private EntityManager em;
 
