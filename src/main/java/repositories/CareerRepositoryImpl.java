@@ -1,9 +1,13 @@
 package main.java.repositories;
 
 import main.java.entities.Career;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
 import javax.persistence.EntityManager;
 import java.util.List;
 
+@Repository
 public class CareerRepositoryImpl implements CareerRepository {
     private EntityManager em;
 
@@ -11,13 +15,11 @@ public class CareerRepositoryImpl implements CareerRepository {
         this.em = em;
     }
 
+    @Transactional
     @Override
     public Career save(Career c) {
         if (c.getId() == -1) {
-            em.getTransaction().begin();
             em.persist(c);
-            em.getTransaction().commit();
-
         }else {
             c = em.merge(c);
         }

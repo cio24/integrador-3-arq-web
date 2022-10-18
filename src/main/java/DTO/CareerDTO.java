@@ -1,11 +1,17 @@
 package main.java.DTO;
 
 public class CareerDTO {
-    private String careerName;
+    private String name;
 
-   public CareerDTO(String careerName) {
-       this.careerName = careerName;
+    public CareerDTO(){
+        super();
+    }
+
+   public CareerDTO(String name) {
+       this.name = name;
    }
 
-
+    public String getName() {
+        return name;
+    }
 }
