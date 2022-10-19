@@ -15,17 +15,19 @@ public class StudentSerivce {
     @Autowired
     StudentRepository studentRepository;
 
-    public void save(StudentDTO sDTO){
-        //create entity
-        Student s = new Student(sDTO.getDocumentNumber(),
+    public StudentDTO save(StudentDTO sDTO){
+        Student s = studentRepository.save(
+            new Student(sDTO.getDocumentNumber(),
                 sDTO.getName(), sDTO.getSurname(), sDTO.getBirthdate(),
-                sDTO.getGender(), sDTO.getCity());
-        studentRepository.save(s);
+                sDTO.getGender(), sDTO.getCity()));
+        
+        sDTO.setBookNumber(s.getBookNumber());
+        return sDTO;
     }
 
     public StudentDTO getByBookNumber(int bookNumber){
         Student s = studentRepository.findByBookNumber(bookNumber);
-        return new StudentDTO(s.getDocumentNumber(),s.getName(),s.getSurname(),s.getBirthdate(),s.getGender(),s.getCity());
+        return new StudentDTO(s.getDocumentNumber(),s.getName(),s.getSurname(),s.getBirthdate(),s.getGender(),s.getCity(),s.getBookNumber());
     }
 
     public List<StudentDTO> getAllSortedByName(){
@@ -33,7 +35,7 @@ public class StudentSerivce {
         List<StudentDTO> studentsDTO = new ArrayList<>();
 
         for(Student s: students){
-            studentsDTO.add(new StudentDTO(s.getDocumentNumber(),s.getName(),s.getSurname(),s.getBirthdate(),s.getGender(),s.getCity()));
+            studentsDTO.add(new StudentDTO(s.getDocumentNumber(),s.getName(),s.getSurname(),s.getBirthdate(),s.getGender(),s.getCity(),s.getBookNumber()));
         }
         return studentsDTO;
     }
@@ -43,7 +45,7 @@ public class StudentSerivce {
         List<StudentDTO> studentsDTO = new ArrayList<>();
 
         for(Student s: students){
-            studentsDTO.add(new StudentDTO(s.getDocumentNumber(),s.getName(),s.getSurname(),s.getBirthdate(),s.getGender(),s.getCity()));
+            studentsDTO.add(new StudentDTO(s.getDocumentNumber(),s.getName(),s.getSurname(),s.getBirthdate(),s.getGender(),s.getCity(),s.getBookNumber()));
         }
         return studentsDTO;
     }

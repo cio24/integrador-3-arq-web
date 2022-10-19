@@ -8,6 +8,7 @@ public class StudentDTO {
     private int documentNumber;
     private String name;
     private String surname;
+    private int bookNumber = -1;
 
     @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
     private Timestamp birthdate;
@@ -18,13 +19,18 @@ public class StudentDTO {
         super();
     }
 
-    public StudentDTO(int documentNumber, String name, String surname, Timestamp birthdate, String gender, String city) {
+    public StudentDTO(int documentNumber, String name, String surname, Timestamp birthdate, String gender, String city, int bookNumber) {
         this.documentNumber = documentNumber;
         this.name = name;
         this.surname = surname;
         this.birthdate = birthdate;
         this.gender = gender;
         this.city = city;
+        this.bookNumber = bookNumber;
+    }
+
+    public StudentDTO(int documentNumber, String name, String surname, Timestamp birthdate, String gender, String city) {
+        this(documentNumber,name,surname,birthdate,gender,city,-1);
     }
 
     public int getDocumentNumber() {
@@ -49,5 +55,11 @@ public class StudentDTO {
 
     public String getCity() {
         return city;
+    }
+
+    public int getBookNumber() { return bookNumber; }
+
+    public void setBookNumber(int bookNumber){
+        this.bookNumber = bookNumber;
     }
 }

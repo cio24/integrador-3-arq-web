@@ -17,8 +17,8 @@ public class StudentController {
     StudentSerivce studentSerivce;
 
     @PostMapping()
-    public void post(@RequestBody StudentDTO s){
-        studentSerivce.save(s);
+    public StudentDTO save(@RequestBody StudentDTO s){
+        return studentSerivce.save(s);
     }
 
     @GetMapping("/{id}")
