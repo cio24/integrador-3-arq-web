@@ -2,6 +2,7 @@ package main.java.controllers;
 
 import main.java.DTO.CareerDTO;
 import main.java.DTO.StudentDTO;
+import main.java.entities.Career;
 import main.java.services.CareerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,8 +19,8 @@ public class CareerController {
     CareerService careerSerivce;
 
     @PostMapping
-    public void post(@RequestBody CareerDTO c){
-        careerSerivce.save(c);
+    public CareerDTO save(@RequestBody CareerDTO c){
+        return careerSerivce.save(c);
     }
 
     @GetMapping()

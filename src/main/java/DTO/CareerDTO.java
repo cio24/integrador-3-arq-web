@@ -3,6 +3,8 @@ package main.java.DTO;
 public class CareerDTO {
     private String name;
 
+    private int id;
+
     public CareerDTO(){
         super();
     }
@@ -13,5 +15,11 @@ public class CareerDTO {
 
     public String getName() {
         return name;
+    }
+
+    public int getId() { return id; }
+
+    public void setId(int id){
+        this.id = id;
     }
 }

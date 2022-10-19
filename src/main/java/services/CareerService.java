@@ -17,10 +17,10 @@ public class CareerService {
     @Autowired
     CareerRepository careerRepository;
 
-    public void save(CareerDTO cDTO){
-        //create entity
-        Career c = new Career(cDTO.getName());
-        careerRepository.save(c);
+    public CareerDTO save(CareerDTO cDTO){
+        Career c = careerRepository.save(new Career(cDTO.getName()));
+        cDTO.setId(c.getId());
+        return cDTO;
     }
 
     public List<CareerDTO> findWithEnrolledStudents(){
