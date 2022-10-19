@@ -1,6 +1,7 @@
 package main.java.controllers;
 
 import main.java.DTO.CareerDTO;
+import main.java.DTO.CareerReportDTO;
 import main.java.DTO.StudentDTO;
 import main.java.entities.Career;
 import main.java.services.CareerService;
@@ -32,4 +33,7 @@ public class CareerController {
                 HttpStatus.NOT_FOUND, "entity not found"
         );
     }
+
+
+
 }
