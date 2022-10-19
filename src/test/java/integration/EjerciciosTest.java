@@ -178,7 +178,7 @@ public class EjerciciosTest {
     @Test
     public void recuperarEstudiantesPorCarreraYCiudadTest() {
         createRandomInscriptions();
-        List<Student> studentsFound = studentRepository.findAllByCareerAndCity(String.valueOf(tudai.getId()),"tandil");
+        List<Student> studentsFound = studentRepository.findAllByCareerAndCity(tudai.getId(),"tandil");
         // cio: de ingenieria y tandil, agus de tudai y balcarce y lu de tudai y tandil
         assertTrue(studentsFound.contains(lu) && !studentsFound.contains(agus) && !studentsFound.contains(cio));
     }

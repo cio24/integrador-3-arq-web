@@ -51,7 +51,7 @@ public class StudentRepositoryImpl implements StudentRepository {
     }
 
     @Override
-    public List<Student> findAllByCareerAndCity(String careerId, String city) {
+    public List<Student> findAllByCareerAndCity(int careerId, String city) {
         return this.em.createQuery("select s from Inscription i join i.student s join i.career c where c.id = :careerId and s.city = :city")
                 .setParameter("careerId", careerId)
                 .setParameter("city",city)

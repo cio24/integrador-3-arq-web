@@ -16,7 +16,7 @@ public interface StudentRepository {
 
     List<Student> findByGender(String gender);
 
-    List<Student> findAllByCareerAndCity(String career, String city);
+    List<Student> findAllByCareerAndCity(int careerId, String city);
 
     void deleteAll();
 

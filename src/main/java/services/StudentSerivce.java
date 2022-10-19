@@ -50,7 +50,7 @@ public class StudentSerivce {
         return studentsDTO;
     }
 
-    public List<StudentDTO> findAllByCareerAndCity(String careerId, String city){
+    public List<StudentDTO> findAllByCareerAndCity(int careerId, String city){
         List<Student> students = this.studentRepository.findAllByCareerAndCity(careerId, city);
         List<StudentDTO> studentDTOS = new ArrayList<>();
 

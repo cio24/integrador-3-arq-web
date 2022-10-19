@@ -27,12 +27,16 @@ public class StudentController {
     }
 
     @GetMapping()
-    public List<StudentDTO> getMany(@RequestParam(required = false) String gender, @RequestParam(required = false) String sortBy){
+    public List<StudentDTO> getMany(@RequestParam(required = false) String gender, @RequestParam(required = false) String sortBy,
+                                    @RequestParam(required = false) int careerId, @RequestParam(required = false) String city){
         if(gender != null)
             return  studentSerivce.getAllByGender(gender);
 
         if(sortBy != null && sortBy.equals("name"))
             return studentSerivce.getAllSortedByName();
+
+        if(city != null && careerId != 0)
+            return studentSerivce.findAllByCareerAndCity(careerId, city);
 
         throw new ResponseStatusException(
                 HttpStatus.NOT_FOUND, "entity not found"
@@ -42,11 +46,6 @@ public class StudentController {
     @GetMapping("/findSortedByName")
     public List<StudentDTO> findAllSortedByName(){
         return studentSerivce.getAllSortedByName();
-    }
-
-    @GetMapping("/byCareerAndCity")
-    public List<StudentDTO> findAllByCareerAndCity(@RequestParam String careerId, @RequestParam String city){
-        return studentSerivce.findAllByCareerAndCity(careerId, city);
     }
 
 }
